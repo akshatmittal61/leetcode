@@ -5,26 +5,17 @@ class Solution
         {
             int n = nums.size();
             vector<int> ans(2);
-           	// sort(nums.begin(), nums.end());
-           	// int beg = 0, end = n - 1;
-           	// while (beg < end)
-           	// {
-           	//     if (nums[beg] + nums[end] == target)
-           	//     {
-           	//         ans[0] = beg, ans[1] = end;
-           	//         return ans;
-           	//     }
-           	//     else if (nums[beg] + nums[end] > target) --end;
-           	//     else ++beg;
-           	// }
+            map<int, int> m;
             for (int i = 0; i < n; ++i)
             {
-                for (int j = i + 1; j < n; ++j)
-                    if (nums[i] + nums[j] == target)
-                    {
-                        ans[0] = i, ans[1] = j;
-                        return ans;
-                    }
+                int k = target - nums[i];
+                if (m.find(k) != m.end())
+                {
+                    ans[0] = m[k];
+                    ans[1] = i;
+                    return ans;
+                }
+                m[nums[i]] = i;
             }
             return ans;
         }
