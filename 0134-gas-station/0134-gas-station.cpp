@@ -11,11 +11,11 @@ public:
         if(totGas < totCost)
             return -1;
         for(int i = 0; i < n; ++i) {
-            g = gas[i] - cost[i];
+            g += gas[i] - cost[i];
             if( g < 0 ) {
                 g = 0, init = i + 1;
             }
         }
-        return init;
+        return init % n;
     }
 };
