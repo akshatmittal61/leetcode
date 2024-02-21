@@ -20,16 +20,12 @@ public:
                 return left;
             }
         }
-        cout<<log_left<<':'<<log_right<<endl;
-        if (log_right - log_left >= 1)
-            return 0;
         long long int ans = left;
         for (long long int i = left + 1; i <= right; ++i) {
             if ( ans == 0 )
                 return 0;
             ans &= i;
         }
-        cout<<ans<<endl;
         return ans;
     }
 };
