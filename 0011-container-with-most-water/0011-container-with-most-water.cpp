@@ -4,7 +4,7 @@ public:
         int n = v.size();
         int ans = INT_MIN;
         int low = 0, high = n - 1;
-        whlie ( low < high ) {
+        while ( low < high ) {
             int k = (high - low) * min(v[low], v[high]);
             if ( k > ans )
                 ans = k;
