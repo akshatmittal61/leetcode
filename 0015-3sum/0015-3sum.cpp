@@ -4,7 +4,8 @@ public:
         sort(v.begin(), v.end());
         vector<vector<int>> ans;
         int n = v.size();
-        for (int i = 0; i < n - 2; ++i ) {
+        int i = 0;
+        while ( i < n - 2 ) {
             int low = i + 1, high = n - 1;
             while ( low < high ) {
                 int l = v[i] + v[low] + v[high];
@@ -24,6 +25,7 @@ public:
             }
             while( i < n - 1 && v[i] == v[i + 1] )
                 ++i;
+            ++i;
         }
         return ans;
     }
