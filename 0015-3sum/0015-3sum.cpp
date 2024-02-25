@@ -1,40 +1,43 @@
-class Solution
-{
-    int _(int a, int b, int c)
-    {
-        return a + b + c == 0 ? 0 : a + b + c > 0 ? 1 : -1;
+class Solution {
+public:
+    int _(vector<int> v, vector<int> t) {
+        int a = v[t[0]];
+        int b = v[t[1]];
+        int c = v[t[2]];
+        if (a + b + c == 0) return 0;
+        else if (a + b + c > 0) return 1;
+        else return -1;
     }
-    public:
-        vector<vector < int>> threeSum(vector<int> &nums)
-        {
-            vector<vector < int>> ans;
-            int n = nums.size();
-            sort(nums.begin(), nums.end());
-
-            for (int i = 0; i < n - 2; ++i)
-            {
-                int low = i + 1, high = n - 1;
-                while (low < high)
-                {
-                    int a = nums[i], b = nums[low], c = nums[high];
-                    if (_(a, b, c) == 0)
-                    {
-                        vector<int> v(3);
-                        v[0] = a, v[1] = b, v[2] = c;
-                        sort(v.begin(), v.end());
-                        ans.push_back(v);
-                        while (high > low && nums[high] == nums[high - 1]) --high;
-                        while (low < high && nums[low] == nums[low + 1]) ++low;
-                        --high, ++low;
-                    }
-                    else if (_(a, b, c) == 1)
-                        --high;
-                    else
+    vector<vector<int>> threeSum(vector<int>& v) {
+        sort(v.begin(), v.end());
+        vector<vector<int>> ans;
+        int n = v.size();
+        int i = 0;
+        while ( i < n - 2 ) {
+            int low = i + 1, high = n - 1;
+            while ( low < high ) {
+                int k = _(v, {i, low, high});
+                if ( k == 0 ) {
+                    ans.push_back({v[i], v[low], v[high]});
+                    while( low < high && v[low] == v[low + 1] )
                         ++low;
+                    while( high > low && v[high] == v[high - 1] )
+                        --high;
+                    --high, ++low;
+                } else if ( k == 1 ) {
+                    do {
+                        --high;
+                    } while( high > low && v[high] == v[high - 1] );
+                } else {
+                    do {
+                        ++low;
+                    } while( low < high && v[low] == v[low + 1] );
                 }
-                while (i < n - 1 && nums[i] == nums[i + 1]) ++i;
             }
-
-            return ans;
+            do {
+                ++i;
+            } while( v[i] == v[i - 1] );
         }
+        return ans;
+    }
 };
