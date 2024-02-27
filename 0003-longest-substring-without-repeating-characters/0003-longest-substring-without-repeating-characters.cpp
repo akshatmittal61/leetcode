@@ -1,12 +1,13 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int n = s.length(), ans = 1;
+        int n = s.length();
         if ( n <= 1 )
             return n;
         if ( n == 2 )
             return s[0] == s[1] ? 1 : 2;
         int i = 0, j = 1;
+        int ans = s[0] == s[1] ? 1 : 2;
         int v[255] = {0};
         v[ int(s[0])]++;
         v[ int(s[1])]++;
