@@ -10,18 +10,9 @@ public:
         return ans;
     }
     bool isHappy(int n) {
-        set<int> s;
-        while ( n != 1 && s.find(n) == s.end() ) {
-            int k = getSumOfSquaresOfDigits(n);
-            if ( k == 1 )
-                return true;
-            if ( s.size() > 0 ) {
-                if (s.find(k) != s.end())
-                    return false;
-            }
-            s.insert(n);
-            n = k;
-        }
-        return n == 1;
+        if ( n < 10 )
+            return n == 1 || n == 7;
+        int k = getSumOfSquaresOfDigits(n);
+        return isHappy(k);
     }
 };
