@@ -20,19 +20,5 @@ public:
             temp = temp->next;
         }
         return false;
-        /* ListNode *slow = head, *fast = head->next;
-        while( slow != fast && fast->next != slow ) {
-        	if( fast == NULL || fast->next == NULL ) {
-                break;
-            }
-    	    slow = slow->next;
-    	    fast = fast->next->next;
-        }
-
-        if(slow == fast || fast->next == slow) {
-    	    return true;
-        } else {
-            return false;
-        } */
     }
 };
