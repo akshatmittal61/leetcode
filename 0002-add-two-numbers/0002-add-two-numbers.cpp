@@ -16,8 +16,14 @@ public:
         ListNode* temp = ans;
         ListNode* temp1 = l1;
         ListNode* temp2 = l2;
-        while ( temp1 != NULL && temp2 != NULL ) {
-            int s = temp1->val + temp2->val;
+        while ( temp1 != NULL || temp2 != NULL || carry != 0 ) {
+            int s = 0;
+            if (temp1 != NULL) {
+                s += temp1->val;
+            }
+            if (temp2 != NULL) {
+                s += temp2->val;
+            }
             curr = (carry + s) % 10;
             ListNode* nd = new ListNode(curr);
             if ( temp == NULL ) {
@@ -28,44 +34,11 @@ public:
                 temp = temp->next;
             }
             carry = (carry + s) / 10;
-            temp1 = temp1->next;
-            temp2 = temp2->next;
-        }
-        while ( temp1 != NULL ) {
-            int s = temp1->val;
-            curr = (carry + s) % 10;
-            ListNode* nd = new ListNode(curr);
-            if ( temp == NULL ) {
-                temp = nd;
-                ans = nd;
-            } else {
-                temp->next = nd;
-                temp = temp->next;
+            if (temp1 != NULL){
+                temp1 = temp1->next;
             }
-            carry = (carry + s) / 10;
-            temp1 = temp1->next;
-        }
-        while ( temp2 != NULL ) {
-            int s = temp2->val;
-            curr = (carry + s) % 10;
-            ListNode* nd = new ListNode(curr);
-            if ( temp == NULL ) {
-                temp = nd;
-                ans = nd;
-            } else {
-                temp->next = nd;
-                temp = temp->next;
-            }
-            carry = (carry + s) / 10;
-            temp2 = temp2->next;
-        }
-        if ( carry != 0 ) {
-            ListNode* nd = new ListNode(carry % 10);
-            if (temp == NULL) {
-                temp = nd;
-                ans = nd;
-            } else {
-                temp->next = nd;
+            if (temp2 != NULL){
+                temp2 = temp2->next;
             }
         }
         return ans;
