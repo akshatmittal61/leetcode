@@ -18,28 +18,23 @@ public:
         ListNode* temp2 = l2;
         while ( temp1 != NULL || temp2 != NULL || carry != 0 ) {
             int s = 0;
-            if (temp1 != NULL) {
+            if (temp1 != NULL)
                 s += temp1->val;
-            }
-            if (temp2 != NULL) {
+            if (temp2 != NULL)
                 s += temp2->val;
-            }
             curr = (carry + s) % 10;
             ListNode* nd = new ListNode(curr);
-            if ( temp == NULL ) {
-                temp = nd;
-                ans = nd;
-            } else {
+            if ( temp == NULL )
+                temp = nd, ans = nd;
+            else {
                 temp->next = nd;
                 temp = temp->next;
             }
             carry = (carry + s) / 10;
-            if (temp1 != NULL){
+            if (temp1 != NULL)
                 temp1 = temp1->next;
-            }
-            if (temp2 != NULL){
+            if (temp2 != NULL)
                 temp2 = temp2->next;
-            }
         }
         return ans;
     }
