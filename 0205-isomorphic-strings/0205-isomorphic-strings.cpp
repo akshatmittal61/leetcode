@@ -1,19 +1,20 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
+        map<char, char> m, p;
         int n = s.length();
-        map<char, char> p, q;
-        for (int i = 0; i < n; ++i)
-        {
-            p[s[i]] = t[i];
-            q[t[i]] = s[i];
+        for(int i = 0;i < n; ++i) {
+            if(m.find(s[i]) == m.end()) {
+                m[s[i]] = t[i];
+            } else {
+                if(m[s[i]] != t[i]) return false;
+            }
+            if(p.find(t[i]) == p.end()) {
+                p[t[i]] = s[i];
+            } else {
+                if(p[t[i]] != s[i]) return false;
+            }
         }
-        string a = s, b = t;
-        for (int i = 0; i < n; ++i)
-        {
-            a[i] = p[s[i]];
-            b[i] = q[t[i]];
-        }
-        return a == t && b == s;
+        return true;
     }
 };
