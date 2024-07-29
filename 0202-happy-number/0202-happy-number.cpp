@@ -1,18 +1,18 @@
 class Solution {
 public:
-    int getSumOfSquaresOfDigits (int n) {
-        int ans = 0;
-        while ( n != 0 ) {
-            int k = n % 10;
-            ans += (k * k);
+    bool isHappy(int n) {
+        cout<<n<<' ';
+        if (n <= 0) return false;
+        int s = 0;
+        while(n != 0) {
+            int m = n % 10;
+            s += m * m;
             n /= 10;
         }
-        return ans;
-    }
-    bool isHappy(int n) {
-        if ( n < 10 )
-            return n == 1 || n == 7;
-        int k = getSumOfSquaresOfDigits(n);
-        return isHappy(k);
+        cout<<s<<endl;
+        if (s == 0) return false;
+        if(s == 1 || s == 7) return true;
+        if (s > 1 && s <= 9) return false;
+        return isHappy(s);
     }
 };
