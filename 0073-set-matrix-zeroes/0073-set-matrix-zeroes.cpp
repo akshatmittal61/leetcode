@@ -14,7 +14,7 @@ public:
         for(int i = 0; i < m; ++i) {
             for(int j = 0; j < n; ++j) {
                 if(r.find(i) != r.end() || c.find(j) != c.end()) {
-                    matrix[i][j]=0;
+                    matrix[i][j] = 0;
                 }
             }
         }
