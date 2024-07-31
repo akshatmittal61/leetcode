@@ -1,18 +1,21 @@
-class Solution
-{
-    public:
-        vector<vector < int>> generate(int nr)
-        {
-            vector<vector < int>> ans;
-            for (int i = 0; i < nr; ++i)
-            {
-                vector<int> r;
-                r.push_back(1);
-                for (int j = 1; j < i; ++j)
-                    r.push_back(ans[i - 1][j] + ans[i - 1][j - 1]);
-                if (i != 0) r.push_back(1);
-                ans.push_back(r);
+class Solution {
+public:
+    vector<vector<int>> generate(int n) {
+        vector<vector<int>> ans;
+        ans.push_back({1});
+        if(n == 1) return ans;
+        ans.push_back({1, 1});
+        if(n == 2) return ans;
+        for(int i = 3; i <= n; ++i) {
+            vector<int> r;
+            r.push_back(1);
+            for(int j = 1; j < i - 1; ++j) {
+                int x = ans[i - 2][j] + ans[i - 2][j - 1];
+                r.push_back(x);
             }
-            return ans;
+            r.push_back(1);
+            ans.push_back(r);
         }
+        return ans;
+    }
 };
