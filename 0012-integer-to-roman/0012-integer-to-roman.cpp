@@ -1,41 +1,43 @@
 class Solution {
 public:
     string intToRoman(int num) {
-        string ans;
-        int n = num, i = 0;
-        map<int, string> m;
-        m[1] = "I";
-        m[5] = "V";
-        m[10] = "X";
-        m[50] = "L";
-        m[100] = "C";
-        m[500] = "D";
-        m[1000] = "M";
-        while( n != 0 ) {
-            string s;
-            int p = n % 10;
-            if ( p == 0 ) {
-            } else if ( m[p * pow(10, i)] != "" ) {
-                s = m[ p * pow(10, i) ];
-            } else if ( p < 4 ) {
-                for(int k = 0; k < p; ++k) {
-                    s += m[ pow(10, i) ];
+        string ans = "";
+        map<int, char> mp;
+        mp[1] = 'I';
+        mp[5] = 'V';
+        mp[10] = 'X';
+        mp[50] = 'L';
+        mp[100] = 'C';
+        mp[500] = 'D';
+        mp[1000] = 'M';
+        int n = num, x = 0;
+        while (n != 0) {
+            int m = n % 10;
+            int y = pow(10, x);
+            string c;
+            if (m == 0) {
+                c = "";
+            } else if (m >= 1 && m <= 3) {
+                for (int i = 1; i <= m; ++i) {
+                    c += mp[y];
                 }
-            } else if ( p == 4 ) {
-                s += m[ pow(10, i) ];
-                s += m[ 5 * pow(10, i) ];
-            } else if ( p < 9 ) {
-                s += m[ 5 * pow(10, i) ];
-                for(int k = 0; k < p - 5; ++k) {
-                    s += m[ pow(10, i) ];
+            } else if (m == 4) {
+                c += mp[1 * y];
+                c += mp[5 * y];
+            } else if (m == 5) {
+                c += mp[5 * y];
+            } else if (m >= 6 && m <= 8) {
+                c += mp[5 * y];
+                for (int i = 1; i <= m - 5; ++i) {
+                    c += mp[y];
                 }
-            } else if ( p == 9 ) {
-                s += m[ pow(10, i) ];
-                s += m[ pow(10, i + 1) ];
+            } else if (m == 9) {
+                c += mp[y];
+                c += mp[10 * y];
             }
-            ans = s + ans;
+            ans = c + ans;
             n /= 10;
-            ++i;
+            ++x;
         }
         return ans;
     }
