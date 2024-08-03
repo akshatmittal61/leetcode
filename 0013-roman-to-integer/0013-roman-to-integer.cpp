@@ -1,23 +1,23 @@
 class Solution {
 public:
     int romanToInt(string s) {
-        map<char,int> m;
-        m['I'] = 1;
-        m['V'] = 5;
-        m['X'] = 10;
-        m['L'] = 50;
-        m['C'] = 100;
-        m['D'] = 500;
-        m['M'] = 1000;
-        int n = s.length(), ans = 0;
+        map<char, int> mp;
+        mp['I'] = 1;
+        mp['V'] = 5;
+        mp['X'] = 10;
+        mp['L'] = 50;
+        mp['C'] = 100;
+        mp['D'] = 500;
+        mp['M'] = 1000;
+        int n = s.length(), x = 0;
         for(int i = 0; i < n; ++i) {
-            if( m[s[i]] >= m[s[i+1]] )
-                ans+=m[s[i]];
-            else {
-                ans += ( m[s[i+1]] - m[s[i]] );
+            if(mp[s[i]] < mp[s[i + 1]]) {
+                x += (mp[s[i + 1]] - mp[s[i]]);
                 ++i;
+            } else {
+                x += mp[s[i]];
             }
         }
-        return ans;
+        return x;
     }
 };
