@@ -1,44 +1,40 @@
 class Solution {
+    bool isValid(vector<char> v) {
+        vector<int> a(9, 0);
+        for(char x: v) {
+            if(x == '.') continue;
+            if(a[x - '1'] > 0) return false;
+            a[x - '1']++;
+        }
+        return true;
+    }
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        for ( int i = 0; i < 9; ++i ) {
-            vector<int> v(9, 0);
-            for ( int j = 0; j < 9; ++j ) {
-                if ( board[i][j] == '.' ) {
-                    continue;
-                }
-                if ( v[board[i][j] - '0' - 1] >= 1 ) {
-                    return false;
-                }
-                v[board[i][j] - '0' - 1]++;
-            }
+        // check for rows
+        for (int i = 0; i < 9; ++i) {
+            if (!isValid(board[i]))
+                return false;
         }
-        for ( int i = 0; i < 9; ++i ) {
-            vector<int> v(9, 0);
-            for ( int j = 0; j < 9; ++j ) {
-                if ( board[j][i] == '.' ) {
-                    continue;
-                }
-                if ( v[board[j][i] - '0' - 1] >= 1 ) {
-                    return false;
-                }
-                v[board[j][i] - '0' - 1]++;
+        // check for columns
+        for (int i = 0; i < 9; ++i) {
+            vector<char> v;
+            for (int j = 0; j < 9; ++j) {
+                v.push_back(board[j][i]);
             }
+            if (!isValid(v))
+                return false;
         }
-        for ( int i = 0; i < 9; i += 3 ) {
-            for ( int j = 0; j < 9; j += 3 ) {
-                vector<int> v(9, 0);
-                for ( int I = i; I < i + 3; ++I ) {
-                    for ( int J = j; J < j + 3; ++J ) {
-                        if ( board[I][J] == '.' ) {
-                            continue;
-                        }
-                        if ( v[board[I][J] - '0' - 1] >= 1 ) {
-                            return false;
-                        }
-                        v[board[I][J] - '0' - 1]++;
-                    } 
+        // check for box
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                vector<char> v;
+                for (int k = 0; k < 3; ++k) {
+                    for (int l = 0; l < 3; ++l) {
+                        v.push_back(board[(i * 3) + k][(j * 3) + l]);
+                    }
                 }
+                if(!isValid(v))
+                    return false;
             }
         }
         return true;
