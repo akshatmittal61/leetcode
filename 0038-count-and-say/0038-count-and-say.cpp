@@ -1,19 +1,27 @@
-class Solution
-{
-    public:
-        string countAndSay(int n)
-        {
-            if (n == 1) return "1";
-            string s = countAndSay(n - 1);
-            int i = 0;
-            string ans = "";
-            for (i = 0; i < s.length(); ++i)
-            {
-                int k = 1;
-                while (i < s.length() - 1 && s[i] == s[i + 1]) ++k, ++i;
-                ans += to_string(k);
-                ans += s[i];
+class Solution {
+    string _(string str) {
+        string ans;
+        int n = str.length();
+        for (int i = 0; i < n; ++i) {
+            int c = 1;
+            while(i + c < n && str[i + c - 1] == str[i + c]) {
+                ++c;
             }
-            return ans;
+            ans += to_string(c);
+            ans += str[i];
+            i += c - 1;
         }
+        return ans;
+    }
+public:
+    string countAndSay(int n) {
+        if (n == 1) return "1";
+        string curr = "1";
+        for(int i = 2; i <= n; ++i) {
+            cout<<curr<<' ';
+            curr = _(curr);
+            cout<<curr<<endl;
+        }
+        return curr;
+    }
 };
