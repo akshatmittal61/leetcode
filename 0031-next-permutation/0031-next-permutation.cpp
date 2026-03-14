@@ -1,27 +1,33 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        int n = nums.size(), i = n - 1;
-        if(n == 1) return;
-        while (i > 0 && nums[i] < nums[i - 1]) {
-            --i;
+        int n = nums.size();
+        if (n == 0 || n == 1) return;
+        int big = n - 1, small = 0;
+        for (int i = n - 1; i > 0; --i) {
+            if (nums[i] <= nums[i - 1]) {
+                big = i - 1;
+            } else {
+                break;
+            }
         }
-        if(i == n - 1) {
-            swap(nums[i], nums[i - 1]);
+        if (big == n - 1) {
+            swap(nums[n - 1], nums[n - 2]);
             return;
         }
-        for (int j = n - 1, k = i; k <= j; ++k, --j) {
-            swap(nums[j], nums[k]);
+        for (int i = big, j = n - 1; i < j; ++i, --j) {
+            swap(nums[i], nums[j]);
         }
-        if(i != 0) {
-            int p = i;
-            for(int k = i; k < n; ++k) {
-                if(nums[k] > nums[i - 1]) {
-                    p = k;
-                    break;
-                }
+        if (big == 0) {
+            return;
+        }
+        int bigger = big;
+        for (int i = big; i <= n - 1; ++i) {
+            if (nums[i] > nums[big - 1]) {
+                bigger = i;
+                break;
             }
-            swap(nums[p], nums[i - 1]);
         }
+        swap(nums[bigger], nums[big - 1]);
     }
 };
